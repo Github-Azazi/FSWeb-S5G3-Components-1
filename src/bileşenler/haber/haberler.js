@@ -102,9 +102,11 @@ const data = [
     {üç ayrı paragraf elementi}
 
     <button class="expandButton">+</button>
-  </div>
+  </div>*/
 
-  Adım 2: Hala `haberYapici` içindeyiz, button.expandButton 'a bir click event dinleyici ekleyin.
+
+
+  /*Adım 2: Hala `haberYapici` içindeyiz, button.expandButton 'a bir click event dinleyici ekleyin.
   Bu dinleyici div.article öğesine 'article-open' class'ını ekleyip/çıkaracak (toogle).
 
   Adım 3: Fonksiyonunuzdan bir öğe döndürmeyi unutmayın.
@@ -115,3 +117,124 @@ const data = [
   Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
   Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
 */
+
+
+/*function haberYapici(data) {
+  
+  let div = document.createElement("div");
+  // Div elementine article sınıfı eklenir
+  div.className = "article";
+
+ 
+  let h2 = document.createElement("h2");
+  h2.textContent = data[0].baslik;
+  div.appendChild(h2);
+
+
+  let p = document.createElement("p");
+  p.className = "tarih";
+  p.textContent = data[0].tarih;
+
+  div.appendChild(p);
+
+
+  let p1 = document.createElement("p");
+  let p2 = document.createElement("p");
+  let p3 = document.createElement("p");
+  
+  p1.textContent = data[0].ilkParagraf;
+  p2.textContent = data[0].ikinciParagraf;
+  p3.textContent = data[0].ucuncuParagraf;
+  
+  div.appendChild(p1);
+  div.appendChild(p2);
+  div.appendChild(p3);
+
+  
+  let button = document.createElement("button");
+  button.className = "expandButton";
+  button.textContent = "+";
+  div.appendChild(button);
+  
+  return div;
+}
+
+*/
+/*function haberYapici(data) {
+  let div = document.createElement("div");
+  div.className = "article";
+  let h2 = document.createElement("h2");
+  h2.textContent = data[0].baslik;
+  div.appendChild(h2);
+  let p = document.createElement("p");
+  p.className = "tarih";
+  p.textContent = data[0].tarih;
+  div.appendChild(p);
+  ["ilkParagraf", "ikinciParagraf", "ucuncuParagraf"].forEach((paragraf) => {
+    let p = document.createElement("p");
+    p.textContent = data[0][paragraf];
+    div.appendChild(p);
+  });
+  let button = document.createElement("button");
+  button.className = "expandButton";
+  button.textContent = "+";
+  div.appendChild(button);
+  return div;
+}
+let haberDiv = haberYapici(data);
+console.log(haberDiv);*/
+
+/*function haberYapici(haber) {
+  return `<div class="article">
+  
+    <h2>${haber.baslik}</h2>
+    <p class="tarih">${hbaer.tarih}</p>
+    <p>${haber.ilkParagraf}</p>
+    <p>${haber.ikinciParagraf}</p>
+    <p>${haber.ucuncuParagraf}</p>
+    < button class="expandButton">+</button>
+    </div>  `;
+}
+
+const article= document.querySelector(".articles");
+
+data.forEach((i)=> {
+  articles.innerHTML += haberYapici(i);
+});
+*/
+
+function newsCreator(news) {
+  const articleDiv = document.createElement("div");
+  articleDiv.classList.add("article");
+
+  const articleH2 = document.createElement("h2");
+  articleH2.textContent = news.baslik;
+  articleDiv.append(articleH2);
+
+  const articleDate = document.createElement("p");
+  articleDate.classList.add("tarih");
+  articleDate.textContent = news.tarih;
+  articleDiv.append(articleDate);
+
+  let paragraphs = [news.ilkParagraf, news.ikinciParagraf, news.ucuncuParagraf];
+
+  for (let i=0; i < paragraphs.length; i++) {
+    let articleParagraph = document.createElement("p");
+    articleParagraph.textContent = paragraphs[i];
+    articleDiv.append(articleParagraph);
+  };
+
+  let expandButton = document.createElement("button");
+  expandButton.classList.add("expandButton");
+  expandButton.textContent = "+";
+  expandButton.addEventListener("click", () => {
+    articleDiv.classList.toggle("article-open");
+  });
+  articleDiv.append(expandButton);
+
+  return articleDiv;
+  };
+
+  data.forEach((news) => {
+    document.querySelector(".articles").append(newsCreator(news));
+  });
